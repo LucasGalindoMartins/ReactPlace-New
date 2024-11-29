@@ -3,7 +3,7 @@ import { updateProduct } from "../services/api";
 
 // Definindo as tipagens para as props do componente
 interface EditProductProps {
-  productId: string;  // Supondo que o productId seja uma string. Ajuste conforme necessário.
+  productId: number;  // Alterado para number, pois a função updateProduct provavelmente espera um número
 }
 
 const EditProduct: React.FC<EditProductProps> = ({ productId }) => {
@@ -15,7 +15,7 @@ const EditProduct: React.FC<EditProductProps> = ({ productId }) => {
   const handleUpdate = async () => {
     try {
       const updatedData = { title, price: parseFloat(price) };
-      await updateProduct(productId, updatedData);
+      await updateProduct(productId, updatedData);  // productId agora é um número
       alert("Produto atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar produto:", error);

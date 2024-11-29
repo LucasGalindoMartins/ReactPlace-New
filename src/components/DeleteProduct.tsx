@@ -3,13 +3,13 @@ import { deleteProduct } from "../services/api";
 
 // Tipagem para as props do DeleteProduct
 interface DeleteProductProps {
-  productId: string;  // Assume-se que productId seja uma string, pode ser ajustado se necessário
+  productId: number;  // Alterado para number
 }
 
 const DeleteProduct: React.FC<DeleteProductProps> = ({ productId }) => {
   const handleDelete = async () => {
     try {
-      await deleteProduct(productId);
+      await deleteProduct(productId);  // Agora productId é do tipo number
       alert("Produto deletado com sucesso!");
     } catch (error) {
       console.error("Erro ao deletar produto:", error);
