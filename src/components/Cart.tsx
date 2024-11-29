@@ -1,14 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-// Tipagem para o item do carrinho
 interface CartItem {
   id: string;
   title: string;
   price: number;
 }
 
-// Tipagem para as props do CartComponent
 interface CartComponentProps {
   cart: CartItem[];
   total: number;
@@ -17,8 +15,19 @@ interface CartComponentProps {
 }
 
 const CartComponent: React.FC<CartComponentProps> = ({ cart, total, onRemoveFromCart, onCheckout }) => {
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    if (cart.length === 0) {
+      navigate('/checkout-success', { state: { isCartEmpty: true } }); // Passa isCartEmpty como true se o carrinho estiver vazio
+    } else {
+      onCheckout();
+      navigate('/checkout-success', { state: { isCartEmpty: false } }); // Passa isCartEmpty como false se o carrinho não estiver vazio
+    }
+  };
+
   return (
-    <div style={{ position: 'fixed', right: '20px', top: '20px', padding: '10px', backgroundColor: '#f1f1f1', borderRadius: '10px' }}>
+    <div>
       <h3>Carrinho</h3>
       <ul>
         {cart.map((item) => (
@@ -31,11 +40,9 @@ const CartComponent: React.FC<CartComponentProps> = ({ cart, total, onRemoveFrom
         ))}
       </ul>
       <h4>Total: R${total.toFixed(2)}</h4>
-      <Link to="/checkout-success">
-        <button onClick={onCheckout} style={{ backgroundColor: 'green', color: 'white', padding: '10px', borderRadius: '5px' }}>
-          Finalizar Compra
-        </button>
-      </Link>
+      <button onClick={handleCheckout} style={{ backgroundColor: 'green', color: 'white', padding: '10px', borderRadius: '5px' }}>
+        Finalizar Compra
+      </button>
     </div>
   );
 };

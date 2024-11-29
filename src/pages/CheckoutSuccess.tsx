@@ -1,23 +1,41 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Definição das tipagens para as propriedades do componente
-interface CheckoutSuccessPageProps {
-  onContinueShopping: () => void;  // Função para limpar o carrinho
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  quantity?: number;
 }
 
-const CheckoutSuccessPage: React.FC<CheckoutSuccessPageProps> = ({ onContinueShopping }) => {
+interface CheckoutSuccessPageProps {
+  cart: Product[];
+  setCartVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  handleContinueShopping: () => void; // Função recebida como prop
+}
+
+const CheckoutSuccessPage: React.FC<CheckoutSuccessPageProps> = ({ cart, setCartVisible, handleContinueShopping }) => {
   const navigate = useNavigate();
 
-  const handleContinueShopping = () => {
-    onContinueShopping();  // Limpa o carrinho
-    navigate('/'); // Redireciona para a página inicial
+  // Função para voltar à loja, limpar o carrinho e restaurar a visibilidade
+  const handleRedirectToShop = () => {
+    handleContinueShopping(); // Chama a função para limpar o carrinho
+    navigate('/');  // Redireciona para a página inicial
   };
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Compra realizada com sucesso!!</h1>
-      <button onClick={handleContinueShopping}>Continuar Comprando</button>
+      {cart.length === 0 ? (
+        <>
+          <h1>Nenhum item adicionado ao carrinho!</h1>
+          <button onClick={handleRedirectToShop}>Voltar à loja</button>
+        </>
+      ) : (
+        <>
+          <h1>Compra realizada com sucesso!!</h1>
+          <button onClick={handleRedirectToShop}>Continuar Comprando</button>
+        </>
+      )}
     </div>
   );
 };
