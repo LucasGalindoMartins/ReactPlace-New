@@ -1,32 +1,31 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 
 const App = () => {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState([]); // Carrinho de compras
+  const [total, setTotal] = useState(0); // Total da compra
 
-  const handleAddToCart = (product) => {
-    setCart([...cart, product]);
+  // Função para adicionar um produto ao carrinho
+  const addToCart = (product) => {
+    const updatedCart = [...cart, product];
+    setCart(updatedCart);
+    setTotal(updatedCart.reduce((acc, item) => acc + item.price, 0)); // Atualizar o total
   };
 
-  const handleRemoveFromCart = (product) => {
-    setCart(cart.filter((item) => item.id !== product.id));
+  // Função para remover um produto do carrinho
+  const removeFromCart = (id) => {
+    const updatedCart = cart.filter(item => item.id !== id);
+    setCart(updatedCart);
+    setTotal(updatedCart.reduce((acc, item) => acc + item.price, 0)); // Atualizar o total
   };
 
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={<ProductList onAddToCart={handleAddToCart} />}
-        />
-        <Route
-          path="/cart"
-          element={<Cart cart={cart} onRemoveFromCart={handleRemoveFromCart} />}
-        />
-      </Routes>
-    </Router>
+    <div>
+      <h1>Marketplace</h1>
+      <ProductList onAddToCart={addToCart} />
+      <Cart cart={cart} onRemoveFromCart={removeFromCart} total={total} />
+    </div>
   );
 };
 

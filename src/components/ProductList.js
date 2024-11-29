@@ -1,3 +1,4 @@
+// ProductList.js
 import React, { useEffect, useState } from "react";
 import { getProducts } from "../services/api";  // Função para buscar os produtos
 import ProductItem from "./ProductItem";  // Componente para exibir detalhes do produto

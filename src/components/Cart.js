@@ -1,19 +1,22 @@
 import React from "react";
 
-const Cart = ({ cart, onRemoveFromCart }) => {
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-
+const Cart = ({ cart, onRemoveFromCart, total }) => {
   return (
     <div>
       <h2>Carrinho</h2>
-      {cart.map((item, index) => (
-        <div key={index}>
-          <h4>{item.name}</h4>
-          <p>R${item.price}</p>
-          <button onClick={() => onRemoveFromCart(item)}>Remover</button>
-        </div>
-      ))}
-      <h3>Total: R${total.toFixed(2)}</h3>
+      {cart.length === 0 ? (
+        <p>Carrinho vazio</p>
+      ) : (
+        <ul>
+          {cart.map((item) => (
+            <li key={item.id}>
+              {item.title} - ${item.price} 
+              <button onClick={() => onRemoveFromCart(item.id)}>Remover</button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <h3>Total: ${total}</h3>
     </div>
   );
 };
