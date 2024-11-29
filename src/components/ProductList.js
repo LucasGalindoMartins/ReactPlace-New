@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../services/api";  // Função que busca os produtos
-import ProductItem from "./ProductItem";  // Exibe detalhes de cada produto
+import { getProducts } from "../services/api";  // Função para buscar os produtos
+import ProductItem from "./ProductItem";  // Componente para exibir detalhes do produto
 
 const ProductList = ({ onAddToCart }) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);  // Estado para armazenar os produtos
 
+  // Função para buscar os produtos da API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts();  // Faz o GET para buscar os produtos
+        const data = await getProducts();  // Chama a função que faz o GET na API
         setProducts(data);  // Atualiza o estado com os produtos recebidos
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
@@ -16,18 +17,18 @@ const ProductList = ({ onAddToCart }) => {
     };
 
     fetchProducts();
-  }, []);
+  }, []);  // Executa uma vez quando o componente for montado
 
   return (
-    <div className="container">
+    <div>
+      <h1>Lista de Produtos</h1>
       <div className="product-list">
         {products.map((product) => (
           <div key={product.id} className="product-card">
-            <div className="product-name">{product.title}</div>
-            <div className="product-price">${product.price}</div>
-            <button onClick={() => onAddToCart(product)} className="add-to-cart-btn">
-              Adicionar ao Carrinho
-            </button>
+            <ProductItem 
+              product={product} 
+              onAddToCart={onAddToCart}  // Passa a função para adicionar ao carrinho
+            />
           </div>
         ))}
       </div>
