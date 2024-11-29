@@ -192,6 +192,7 @@ button:hover {
   background-color: #218838;
 }
 
+/* Product Image Container */
 .product-item {
   display: flex;
   flex-direction: column;
@@ -244,4 +245,72 @@ button:hover {
 
 .product-details button:hover {
   background-color: #218838;
+}
+
+/* Media Queries para mobile */
+
+@media (max-width: 768px) {
+  /* Layout de produtos responsivo */
+  .product-list {
+    justify-content: space-between;
+  }
+
+  .product-card {
+    width: 100%; /* Um card por linha */
+    height: 250px; /* Reduz altura ainda mais */
+  }
+
+  .product-card h3 {
+    font-size: 1rem;
+  }
+
+  .product-card p {
+    font-size: 0.9rem;
+  }
+
+  .product-image-container {
+    height: 100px; /* Ajusta a altura da imagem */
+  }
+
+  .product-image {
+    max-height: 100%;  /* Ajusta a imagem proporcionalmente */
+  }
+
+  .product-card button {
+    font-size: 0.9rem; /* Botão com fonte menor */
+    padding: 8px 12px;
+  }
+
+  .cart-sidebar {
+    width: 100%; /* Carrinho ocupa toda a largura da tela */
+    position: relative;
+    height: auto;
+    padding: 15px;
+    box-shadow: none;
+  }
+
+  .cart-header {
+    font-size: 14px;
+  }
+
+  .cart-item {
+    font-size: 0.8rem;
+  }
+
+  .cart {
+    padding: 8px; /* Menor preenchimento */
+  }
+
+  .cart h3 {
+    font-size: 0.8rem; /* Texto menor */
+  }
+
+  .cart p {
+    font-size: 0.75rem; /* Texto ainda menor */
+  }
+
+  .remove-btn {
+    font-size: 0.7rem; /* Botão reduzido */
+    padding: 6px; /* Preenchimento ajustado */
+  }
 }
