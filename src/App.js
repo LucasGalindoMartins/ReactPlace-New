@@ -6,6 +6,7 @@ import CheckoutSuccessPage from './pages/CheckoutSuccess';
 
 const App = () => {
   const [cart, setCart] = useState([]);
+  const [cartVisible, setCartVisible] = useState(true); // Estado para controlar a visibilidade do carrinho
 
   // Função para adicionar um produto ao carrinho
   const handleAddToCart = (product) => {
@@ -48,6 +49,11 @@ const App = () => {
     .reduce((acc, product) => acc + product.price * product.quantity, 0)
     .toFixed(2);
 
+  const handleCheckout = () => {
+    setCartVisible(false); // Esconde o carrinho após o checkout
+    setCart([]); // Limpa o carrinho
+  };
+
   return (
     <Router>
       <div className="container">
@@ -63,6 +69,7 @@ const App = () => {
               element={
                 <CheckoutSuccessPage
                   onContinueShopping={() => {
+                    setCartVisible(true); // Exibe o carrinho novamente após a compra
                     setCart([]); // Limpa o carrinho após a compra
                   }}
                 />
@@ -70,34 +77,38 @@ const App = () => {
             />
           </Routes>
         </div>
-  
-        {/* Carrinho fixo na lateral */}
-        <div className="cart-sidebar">
-          <h3 className="cart-header">Carrinho</h3>
-          <div className="cart-items">
-            {cart.length > 0 ? (
-              cart.map((product) => (
-                <div key={product.id} className="cart-item">
-                  <span>
-                    {product.title} - ${product.price} x {product.quantity}
-                  </span>
-                  <button
-                    onClick={() => handleRemoveFromCart(product.id)}
-                    className="remove-btn"
-                  >
-                    Remover
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p>O carrinho está vazio.</p>
-            )}
+
+        {/* Carrinho fixo na lateral, visível apenas se cartVisible for verdadeiro */}
+        {cartVisible && (
+          <div className="cart-sidebar">
+            <h3 className="cart-header">Carrinho</h3>
+            <div className="cart-items">
+              {cart.length > 0 ? (
+                cart.map((product) => (
+                  <div key={product.id} className="cart-item">
+                    <span>
+                      {product.title} - ${product.price} x {product.quantity}
+                    </span>
+                    <button
+                      onClick={() => handleRemoveFromCart(product.id)}
+                      className="remove-btn"
+                    >
+                      Remover
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p>O carrinho está vazio.</p>
+              )}
+            </div>
+            <div className="cart-total">Total: ${totalAmount}</div>
+            <Link to="/checkout-success">
+              <button className="checkout-btn" onClick={handleCheckout}>
+                Finalizar Compra
+              </button>
+            </Link>
           </div>
-          <div className="cart-total">Total: ${totalAmount}</div>
-          <Link to="/checkout-success">
-            <button className="checkout-btn">Finalizar Compra</button>
-          </Link>
-        </div>
+        )}
       </div>
     </Router>
   );
