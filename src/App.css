@@ -122,47 +122,40 @@ button:hover {
   background-color: #ddd;
 }
 
-/* Layout principal (duas colunas) */
-.app-container {
-  display: flex;
-  flex-direction: row;
-  height: 100vh;
+/* Container principal com espaço reservado para o carrinho */
+.container {
+  display: flex; /* Usa flex para criar um layout em duas colunas */
 }
 
-/* Container dos produtos (à esquerda) */
-.product-container {
-  flex: 1; /* Ocupa todo o espaço disponível, exceto a largura do carrinho */
+/* Seção principal de produtos */
+.main-content {
+  flex: 1; /* Ocupa todo o espaço restante */
   padding: 20px;
-  overflow-y: auto; /* Para rolagem caso necessário */
 }
 
-/* Barra lateral do carrinho (à direita) */
+/* Carrinho fixo no lado direito */
 .cart-sidebar {
-  width: 300px;
+  width: 300px; /* Largura fixa do carrinho */
   background-color: #f9f9f9;
   border-left: 1px solid #ddd;
-  padding: 20px;
+  padding: 15px;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Caso muitos itens sejam adicionados */
+  height: 100vh; /* Faz o carrinho ocupar toda a altura da tela */
+  position: sticky; /* Fixa no topo ao rolar a página */
+  top: 0;
+  overflow-y: auto; /* Permite rolagem se o conteúdo do carrinho exceder a altura */
 }
 
 /* Cabeçalho do carrinho */
 .cart-header {
-  display: flex;
-  align-items: center;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 20px;
-}
-
-/* Detalhes do carrinho */
-.cart-details {
-  font-size: 14px;
+  margin-bottom: 15px;
 }
 
 /* Lista de itens no carrinho */
 .cart-items {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 /* Cada item do carrinho */
@@ -178,8 +171,8 @@ button:hover {
   background-color: #ff4d4d;
   color: white;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 4px 8px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 12px;
 }
@@ -190,7 +183,7 @@ button:hover {
 
 /* Total do carrinho */
 .cart-total {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
   margin: 20px 0;
 }
@@ -203,10 +196,9 @@ button:hover {
   border: none;
   padding: 10px;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  text-align: center;
 }
 
 .checkout-btn:hover {
