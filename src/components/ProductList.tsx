@@ -2,8 +2,20 @@ import React, { useEffect, useState } from "react";
 import { getProducts } from "../services/api";  // Função para buscar os produtos
 import ProductItem from "./ProductItem";  // Componente para exibir detalhes do produto
 
-const ProductList = ({ onAddToCart }) => {
-  const [products, setProducts] = useState([]);  // Estado para armazenar os produtos
+// Definição das tipagens para os produtos
+interface Product {
+  id: number;      // Garantir que o ID seja do tipo number, caso a API retorne um número
+  title: string;
+  price: number;
+  image: string;   // Supondo que a imagem seja uma URL de string
+}
+
+interface ProductListProps {
+  onAddToCart: (product: Product) => void;  // Função para adicionar ao carrinho
+}
+
+const ProductList: React.FC<ProductListProps> = ({ onAddToCart }) => {
+  const [products, setProducts] = useState<Product[]>([]);  // Estado para armazenar os produtos
 
   // Função para buscar os produtos da API
   useEffect(() => {

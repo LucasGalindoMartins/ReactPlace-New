@@ -1,9 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Definição das tipagens para as propriedades do componente
+interface CheckoutSuccessPageProps {
+  onContinueShopping: () => void;  // Função para limpar o carrinho
+}
 
-const CheckoutSuccessPage = ({ onContinueShopping }) => {  // Renomeado para CheckoutSuccessPage
-    const navigate = useNavigate();
+const CheckoutSuccessPage: React.FC<CheckoutSuccessPageProps> = ({ onContinueShopping }) => {
+  const navigate = useNavigate();
 
   const handleContinueShopping = () => {
     onContinueShopping();  // Limpa o carrinho

@@ -4,19 +4,27 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; // Incluindo o Link para navegação
 import CheckoutSuccessPage from './pages/CheckoutSuccess';
 
+// Definição das tipagens para o produto
+interface Product {
+  id: number;         // ID do produto (tipo number)
+  title: string;      // Nome do produto
+  price: number;      // Preço do produto
+  quantity?: number;  // Quantidade do produto no carrinho, pode ser opcional
+}
+
 const App = () => {
-  const [cart, setCart] = useState([]);
-  const [cartVisible, setCartVisible] = useState(true); // Estado para controlar a visibilidade do carrinho
+  const [cart, setCart] = useState<Product[]>([]);  // Estado para o carrinho, que é um array de produtos
+  const [cartVisible, setCartVisible] = useState<boolean>(true); // Estado para controlar a visibilidade do carrinho
 
   // Função para adicionar um produto ao carrinho
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product: Product) => {
     setCart((prevCart) => {
       const productExists = prevCart.find((item) => item.id === product.id);
       if (productExists) {
         // Se o produto já existe, atualiza a quantidade
         return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: (item.quantity || 0) + 1 }
             : item
         );
       } else {
@@ -27,12 +35,12 @@ const App = () => {
   };
 
   // Função para remover um produto do carrinho
-  const handleRemoveFromCart = (productId) => {
+  const handleRemoveFromCart = (productId: number) => {
     setCart((prevCart) => {
       return prevCart
         .map((item) => {
           if (item.id === productId) {
-            if (item.quantity > 1) {
+            if (item.quantity && item.quantity > 1) {
               // Se a quantidade for maior que 1, diminui a quantidade
               return { ...item, quantity: item.quantity - 1 };
             }
@@ -40,13 +48,13 @@ const App = () => {
           }
           return item;
         })
-        .filter(Boolean); // Remove os itens que são null
+        .filter((item): item is Product => item !== null); // Filtra corretamente removendo os nulls e mantendo apenas itens Product
     });
   };
 
   // Cálculo do valor total do carrinho
   const totalAmount = cart
-    .reduce((acc, product) => acc + product.price * product.quantity, 0)
+    .reduce((acc, product) => acc + (product.price * (product.quantity || 1)), 0)
     .toFixed(2);
 
   const handleCheckout = () => {

@@ -1,12 +1,24 @@
-import React from "react";
+import React from 'react';
 
-const ProductItem = ({ product, onAddToCart }) => {
+// Definição das tipagens para os produtos
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
+
+interface ProductItemProps {
+  product: Product;
+  onAddToCart: (product: Product) => void; // Tipagem da função
+}
+
+const ProductItem: React.FC<ProductItemProps> = ({ product, onAddToCart }) => {
   return (
     <div className="product-card">
-      {/* Imagem do produto dentro do card */}
       <div className="product-image-container">
         <img
-          src={product.image}  // Supondo que a imagem esteja no campo "image" da API
+          src={product.image}
           alt={product.title}
           className="product-image"
         />

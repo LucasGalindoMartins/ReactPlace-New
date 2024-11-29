@@ -1,7 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const CartComponent = ({ cart, total, onRemoveFromCart, onCheckout }) => {  // Renomeado para CartComponent
+// Tipagem para o item do carrinho
+interface CartItem {
+  id: string;
+  title: string;
+  price: number;
+}
+
+// Tipagem para as props do CartComponent
+interface CartComponentProps {
+  cart: CartItem[];
+  total: number;
+  onRemoveFromCart: (id: string) => void;
+  onCheckout: () => void;
+}
+
+const CartComponent: React.FC<CartComponentProps> = ({ cart, total, onRemoveFromCart, onCheckout }) => {
   return (
     <div style={{ position: 'fixed', right: '20px', top: '20px', padding: '10px', backgroundColor: '#f1f1f1', borderRadius: '10px' }}>
       <h3>Carrinho</h3>
@@ -9,7 +24,9 @@ const CartComponent = ({ cart, total, onRemoveFromCart, onCheckout }) => {  // R
         {cart.map((item) => (
           <li key={item.id}>
             {item.title} - R${item.price.toFixed(2)}
-            <button onClick={() => onRemoveFromCart(item.id)} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>Remover</button>
+            <button onClick={() => onRemoveFromCart(item.id)} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>
+              Remover
+            </button>
           </li>
         ))}
       </ul>
