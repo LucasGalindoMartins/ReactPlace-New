@@ -1,20 +1,19 @@
-/* Definindo o layout da página */
+/* Layout da página, com flexbox */
 .container {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  gap: 20px;
 }
 
-/* Estilizando a lista de produtos */
+/* Estilo da lista de produtos */
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Flexibilidade na quantidade de colunas */
   gap: 20px;
   width: 70%;
 }
 
-/* Estilo dos cards de produtos */
+/* Estilo do card do produto */
 .product-card {
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -26,24 +25,22 @@
 }
 
 .product-card:hover {
-  transform: scale(1.05);
+  transform: scale(1.05);  /* Efeito de zoom ao passar o mouse */
 }
 
-/* Estilo do nome do produto */
+/* Nome e preço do produto */
 .product-name {
   font-size: 1.2rem;
   font-weight: bold;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
 
-/* Estilo do preço do produto */
 .product-price {
   font-size: 1rem;
   color: #333;
 }
 
-/* Carrinho de compras */
+/* Estilo do carrinho */
 .cart {
   width: 25%;
   padding: 20px;
@@ -52,20 +49,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo do ícone do carrinho */
 .cart-icon {
   font-size: 2rem;
   cursor: pointer;
 }
 
-/* Estilo do valor total */
 .total-value {
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 20px;
 }
 
-/* Botão do carrinho */
 .checkout-btn {
   background-color: #28a745;
   color: white;
@@ -81,3 +75,107 @@
 .checkout-btn:hover {
   background-color: #218838;
 }
+
+/* Estilo do botão de remover */
+.remove-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.3s;
+}
+
+.remove-btn:hover {
+  background-color: #e53935;
+}
+
+/* Estilo dos itens no carrinho */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.cart-items {
+  margin-top: 20px;
+}
+
+.cart-icon {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.cart-text {
+  margin-left: 8px;  /* Espaçamento entre o ícone e o texto */
+  font-size: 18px;
+}
+
+.cart {
+  position: fixed; /* Fixa o carrinho na tela */
+  top: 20px; /* Distância do topo */
+  right: 20px; /* Distância da borda direita */
+  background-color: #fff; /* Cor de fundo */
+  padding: 20px; /* Espaçamento interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar destaque */
+  border-radius: 10px; /* Bordas arredondadas */
+  width: 250px; /* Largura do carrinho */
+  z-index: 100; /* Garante que o carrinho fique acima de outros conteúdos */
+}
+
+.cart-icon {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.cart-text {
+  margin-left: 8px; /* Espaçamento entre o ícone e o texto */
+  font-size: 18px;
+}
+
+.total-value {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.remove-btn {
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.remove-btn:hover {
+  background-color: #e53e3e;
+}
+
+.checkout-btn {
+  margin-top: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.checkout-btn:hover {
+  background-color: #45a049;
+}
+

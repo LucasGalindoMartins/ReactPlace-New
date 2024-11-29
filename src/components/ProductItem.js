@@ -2,10 +2,12 @@ import React from "react";
 
 const ProductItem = ({ product, onAddToCart }) => {
   return (
-    <div>
-      <h3>{product.title}</h3>
-      <p>Preço: ${product.price}</p>
-      <button onClick={() => onAddToCart(product)}>Adicionar ao carrinho</button>
+    <div className="product-card">
+      <div className="product-name">{product.title}</div>
+      <div className="product-price">${product.price}</div>
+      <button onClick={() => onAddToCart(product)} className="add-to-cart-btn">
+        Adicionar ao Carrinho
+      </button>
     </div>
   );
 };
